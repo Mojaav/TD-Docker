@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir --user -r requirements.txt
 FROM python:3.11-slim as production
 
 # meta imagedata
-LABEL maintainer="matheo.chatelard@ecoles-epsi.net"
+LABEL maintainer=""
 LABEL description="API Flask pour le TD Docker"
 LABEL version="1.0"
 
