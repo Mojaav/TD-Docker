@@ -1,0 +1,33 @@
+# Git ignore pour le projet TD Docker
+
+# Variables d'environnement (ne jamais commit les secrets!)
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+venv/
+env/
+.venv/
+
+# Node
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker (volumes locaux)
+data/

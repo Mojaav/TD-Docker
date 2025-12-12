@@ -1,0 +1,201 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #333;
+    color: white;
+}
+
+header h1 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.section {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.section h2 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #333;
+}
+
+/* Status */
+.status-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ccc;
+}
+
+.status-indicator.ok {
+    background: #28a745;
+}
+
+.status-indicator.error {
+    background: #dc3545;
+}
+
+/* Boutons */
+.btn {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.btn:hover {
+    background: #555;
+}
+
+.btn-add {
+    background: #28a745;
+}
+
+.btn-add:hover {
+    background: #218838;
+}
+
+.btn-delete {
+    background: #dc3545;
+    padding: 5px 10px;
+    font-size: 0.8em;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+/* Formulaire */
+.add-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.add-form input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    flex: 1;
+    min-width: 120px;
+}
+
+.add-form input:focus {
+    outline: none;
+    border-color: #333;
+}
+
+/* Liste des items */
+.items-list {
+    list-style: none;
+}
+
+.items-list li {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.items-list li:last-child {
+    border-bottom: none;
+}
+
+.items-list li:hover {
+    background: #f9f9f9;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-desc {
+    color: #666;
+    font-size: 0.85em;
+    margin-top: 3px;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-date {
+    color: #999;
+    font-size: 0.8em;
+}
+
+/* Messages */
+.loading {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+}
+
+.error-message {
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+}
+
+.count-badge {
+    background: #333;
+    color: white;
+    padding: 2px 8px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+footer {
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+    font-size: 0.85em;
+}

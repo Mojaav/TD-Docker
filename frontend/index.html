@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Docker - Gestion d'items</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TD Docker</h1>
+            <p>Chatelard Mathéo</p>
+        </header>
+
+        <div class="section">
+            <h2>Status API</h2>
+            <div class="status-box">
+                <div id="status-indicator" class="status-indicator"></div>
+                <span id="status-text">Verification...</span>
+                <button class="btn" onclick="checkStatus()">Actualiser</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Items <span id="items-count" class="count-badge">0</span></h2>
+            
+            <div class="add-form">
+                <input type="text" id="item-nom" placeholder="Nom">
+                <input type="text" id="item-desc" placeholder="Description">
+                <button class="btn btn-add" onclick="addItem()">Ajouter</button>
+                <button class="btn" onclick="loadItems()">Actualiser</button>
+            </div>
+            
+            <div id="items-container">
+                <p class="loading">Chargement...</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>TD Docker - Decembre 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        const API_URL = '/api';
+
+        async function checkStatus() {
+            const indicator = document.getElementById('status-indicator');
+            const text = document.getElementById('status-text');
+            
+            try {
+                const response = await fetch(API_URL + '/status');
+                const data = await response.json();
+                
+                if (data.status === 'OK') {
+                    indicator.className = 'status-indicator ok';
+                    text.textContent = 'API OK';
+                } else {
+                    throw new Error('Erreur');
+                }
+            } catch (error) {
+                indicator.className = 'status-indicator error';
+                text.textContent = 'API indisponible';
+            }
+        }
+
+        async function loadItems() {
+            const container = document.getElementById('items-container');
+            const countBadge = document.getElementById('items-count');
+            
+            container.innerHTML = '<p class="loading">Chargement...</p>';
+            
+            try {
+                const response = await fetch(API_URL + '/items');
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                countBadge.textContent = data.count;
+                
+                if (data.items.length === 0) {
+                    container.innerHTML = '<p class="loading">Aucun item</p>';
+                    return;
+                }
+                
+                let html = '<ul class="items-list">';
+                for (let i = 0; i < data.items.length; i++) {
+                    const item = data.items[i];
+                    html += '<li>';
+                    html += '<div class="item-info">';
+                    html += '<div class="item-name">' + item.id + '. ' + item.nom + '</div>';
+                    html += '<div class="item-desc">' + (item.description || '-') + '</div>';
+                    html += '</div>';
+                    html += '<div class="item-actions">';
+                    html += '<span class="item-date">' + item.date_creation + '</span>';
+                    html += '<button class="btn btn-delete" onclick="deleteItem(' + item.id + ')">Supprimer</button>';
+                    html += '</div>';
+                    html += '</li>';
+                }
+                html += '</ul>';
+                
+                container.innerHTML = html;
+                
+            } catch (error) {
+                container.innerHTML = '<div class="error-message">Erreur: ' + error.message + '</div>';
+                countBadge.textContent = '!';
+            }
+        }
+
+        async function addItem() {
+            const nomInput = document.getElementById('item-nom');
+            const descInput = document.getElementById('item-desc');
+            
+            const nom = nomInput.value.trim();
+            const description = descInput.value.trim();
+            
+            if (!nom) {
+                alert('Le nom est requis');
+                return;
+            }
+            
+            try {
+                const response = await fetch(API_URL + '/items', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nom: nom, description: description })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    nomInput.value = '';
+                    descInput.value = '';
+                    loadItems();
+                } else {
+                    alert('Erreur: ' + data.error);
+                }
+            } catch (error) {
+                alert('Erreur: ' + error.message);
+            }
+        }
+
+        async function deleteItem(id) {
+            if (!confirm('Supprimer item ' + id + ' ?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(API_URL + '/items/' + id, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    loadItems();
+                } else {
+                    const data = await response.json();
+                    alert('Erreur: ' + data.error);
+                }
+            } catch (error) {
+                alert('Erreur: ' + error.message);
+            }
+        }
+
+        // Au chargement de la page
+        window.onload = function() {
+            checkStatus();
+            loadItems();
+        };
+    </script>
+</body>
+</html>

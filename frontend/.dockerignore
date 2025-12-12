@@ -1,0 +1,41 @@
+# Fichier .dockerignore pour le Frontend
+# Exclut les fichiers inutiles du contexte de build
+
+# Node modules (si on utilisait npm)
+node_modules/
+npm-debug.log
+
+# IDE et éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+docs/
+*.md
+README*
+
+# Tests
+tests/
+__tests__/
+*.test.js
+*.spec.js
+
+# Fichiers de config non nécessaires
+.env*
+.eslintrc*
+.prettierrc*
+
+# Logs
+*.log
+logs/
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore

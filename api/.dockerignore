@@ -1,0 +1,43 @@
+# Fichier .dockerignore pour l'API
+# On exclut tout ce qui n'est pas nécessaire pour réduire la taille du contexte de build
+
+# Fichiers Python compilés
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Environnements virtuels
+venv/
+env/
+.env
+
+# IDE et éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Tests et documentation
+tests/
+docs/
+*.md
+README*
+
+# Fichiers de logs
+*.log
+logs/
+
+# Fichiers temporaires
+*.tmp
+*.temp
+.cache/
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
