@@ -1,5 +1,4 @@
 # Fichier .dockerignore pour l'API
-# On exclut tout ce qui n'est pas nécessaire pour réduire la taille du contexte de build
 
 # Fichiers Python compilés
 __pycache__/
